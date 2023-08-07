@@ -1,0 +1,12 @@
+name: longfunctioncall_env
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - pip
+  - pip:
+    - farm-haystack[all]
+    - jupyterlab
+    - streamlit
+    - openai
