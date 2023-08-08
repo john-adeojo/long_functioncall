@@ -34,11 +34,11 @@ class OpenAIFunctionCall(BaseComponent):
                         },
                         "investment_policy": {
                             "type": "string",
-                            "description": "Return a summary of the fund's investment policy, no more than two sentences."
+                            "description": "Return a summary of the fund's investment policy, you will summarise the main points. Maximum 250 words."
                         },
                         "investment_strategy": {
                             "type": "string",
-                            "description": "Return a summary of the fund's investment strategy, no more than two sentences."
+                            "description": "Return a summary of the fund's investment strategy, you will summarise the main points. Maximum 250 words."
                         },
                         "ESG": {
                             "type": "string",
@@ -61,7 +61,7 @@ class OpenAIFunctionCall(BaseComponent):
         
         openai.api_key = self.API_KEY
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo-0613",
+            model="gpt-4",
             messages=[{"role": "system", "content": document_content}],
             functions=functions,
             function_call="auto",  # auto is default, but we'll be explicit
