@@ -5,10 +5,11 @@ import json
 
 class OpenAIFunctionCall(BaseComponent):
     outgoing_edges = 1
+    def __init__(self, API_KEY):
+        self.API_KEY = API_KEY
 
     def run(self, documents: List[str]):
         
-        # Try to extract the content and print the first few content strings
         try:
             document_content_list = [doc.content for doc in documents]
             print("documents extracted")
@@ -18,12 +19,12 @@ class OpenAIFunctionCall(BaseComponent):
             return
         functions = [
             {
-                "name": "write_to_df",
+                "name": "update_dataframe",
                 "description": "write the fund details to a dataframe",
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "prr": {
+                        "Product_reference_num": {
                             "type": "string",
                             "description": "The FCA product reference number which will be six or seven digits"
                         },
@@ -49,7 +50,7 @@ class OpenAIFunctionCall(BaseComponent):
                         },
                     },
                 },
-                "required": ["prr", 
+                "required": ["Product_reference_num", 
                              "investment_objective", 
                              "investment_policy",
                              "investment_strategy",
@@ -58,7 +59,7 @@ class OpenAIFunctionCall(BaseComponent):
             }
         ]
         
-        openai.api_key = API_KEY
+        openai.api_key = self.API_KEY
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo-0613",
             messages=[{"role": "system", "content": document_content}],

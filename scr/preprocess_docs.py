@@ -2,6 +2,7 @@ from haystack.nodes import PreProcessor
 from haystack.utils import convert_files_to_docs
 from haystack.document_stores import FAISSDocumentStore
 from sqlalchemy import create_engine
+from haystack.nodes import EmbeddingRetriever
 
 # pre-process docs 
 def preprocess_docs(doc_dir):
